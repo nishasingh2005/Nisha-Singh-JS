@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Collection</title>
+    <style>
+        :root {
+            --primary-color: #64ffda;
+            --secondary-color: #7b68ee;
+            --accent-color: #ff79c6;
+            --danger-color: #ff5555;
+            --dark-bg: #1e1e2e;
+            --card-bg: #282a36;
+            --calc-bg: #191a2a;
+            --calc-btn-bg: #44475a;
+            --calc-hover: #506477;
+            --text-color: #f8f8f2;
+            --text-secondary: #d0d0e0;
+            --input-bg: #353746;
+            --border-radius: 16px;
+            --btn-radius: 10px;
+            --shadow: 0 10px 20px rgba(0,0,0,0.3);
+            --inner-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            --glow: 0 0 10px rgba(100, 255, 218, 0.3);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --gradient-1: linear-gradient(135deg, #7b68ee, #64ffda);
+            --gradient-2: linear-gradient(135deg, #ff79c6, #7b68ee);
+            --gradient-3: linear-gradient(135deg, #64ffda, #ff79c6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: radial-gradient(circle at top right, rgba(123, 104, 238, 0.1), transparent), 
+                             radial-gradient(circle at bottom left, rgba(100, 255, 218, 0.08), transparent);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(123, 104, 238, 0.3);
+            position: relative;
+        }
+        
+        h1::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-1);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .block {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(150, 150, 210, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .block:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow), var(--glow);
+            border-color: rgba(100, 255, 218, 0.2);
+        }
+        
+        .block:hover::before {
+            opacity: 1;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 1.5rem;
+            padding-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+        }
+
+        input, button {
+            padding: 14px 18px;
+            margin: 8px 0;
+            border: none;
+            border-radius: var(--btn-radius);
+            background: var(--input-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: var(--transition);
+            outline: none;
+            box-shadow: var(--inner-shadow);
+            font-family: inherit;
+        }
+
+        input {
+            border: 1px solid rgba(150, 150, 210, 0.1);
+            background: rgba(53, 55, 70, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        input:focus {
+            box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.3), var(--inner-shadow);
+            border-color: rgba(100, 255, 218, 0.4);
+        }
+
+        button {
+            background: var(--secondary-color);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(123, 104, 238, 0.3);
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(123, 104, 238, 0.4);
+        }
+        
+        button:hover::before {
+            opacity: 1;
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(123, 104, 238, 0.3);
+        }
+
+        p {
+            margin: 10px 0;
+            color: var(--text-secondary);
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--danger-color);
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 30px auto;
+            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.5);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .circle::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            top: -25%;
+            left: -25%;
+        }
+        
+        .circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-sizing: border-box;
+            animation: pulseRing 2s infinite;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+        }
+
+        .circle:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6), 0 0 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .circle:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        #calculator {
+            background: var(--calc-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(150, 150, 210, 0.15);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .calc-display {
+            width: 100%;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+            font-size: 1.6em;
+            background: rgba(25, 26, 42, 0.8);
+            border: 1px solid rgba(150, 150, 210, 0.1);
+            color: var(--text-color);
+            border-radius: 12px;
+            box-shadow: var(--inner-shadow);
+            text-align: right;
+            font-family: 'Roboto Mono', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calc-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-3);
+            opacity: 0.4;
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        #calculator button {
+            padding: 18px 10px;
+            font-size: 1.2em;
+            background: var(--calc-btn-bg);
+            border-radius: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(150, 150, 210, 0.1);
+        }
+        
+        #calculator button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            border-radius: 50%;
+            z-index: -1;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        #calculator button:hover {
+            background: var(--calc-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        #calculator button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        #calculator button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #calculator button[onclick="calculate()"] {
+            background: var(--accent-color);
+            grid-row: span 2;
+            height: 100%;
+            box-shadow: 0 4px 12px rgba(255, 121, 198, 0.4);
+        }
+
+        #calculator button[onclick="clearDisplay()"] {
+            background: var(--danger-color);
+            box-shadow: 0 4px 12px rgba(255, 85, 85, 0.4);
+        }
+
+        .counter-btn {
+            background: var(--gradient-2) !important;
+            padding: 18px 25px !important;
+            border-radius: 50px !important;
+            font-weight: 700 !important;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem !important;
+            margin: 15px 0 !important;
+            color: white !important;
+            box-shadow: 0 8px 20px rgba(255, 121, 198, 0.4) !important;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1) !important;
+        }
+        
+        .counter-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(45deg);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: -1;
+        }
+        
+        .counter-btn:hover::after {
+            left: 100%;
+        }
+        
+        .counter-btn:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 25px rgba(255, 121, 198, 0.5) !important;
+        }
+
+        .counter-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .counter-stats p {
+            background: rgba(25, 26, 42, 0.8);
+            padding: 15px;
+            border-radius: 12px;
+            min-width: 100px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+        
+        .counter-stats p:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 10px rgba(100, 255, 218, 0.2);
+        }
+        
+        .counter-stats p::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-3);
+            opacity: 0.8;
+        }
+
+        .counter-stats span {
+            display: block;
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 8px;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .color-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            background: #ffffff;
+            margin: 20px auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .color-preview::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.13) 0%,
+                rgba(255, 255, 255, 0) 77%
+            );
+            transform: rotate(45deg);
+        }
+
+        .color-name {
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-color);
+            background: rgba(0,0,0,0.25);
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            letter-spacing: 1px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .color-mixer {
+            margin-top: 20px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            background: rgba(0,0,0,0.15);
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .slider-container label {
+            flex: 0 0 60px;
+            color: var(--text-color);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .color-mixer input[type="range"] {
+            flex: 1;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            outline: none;
+            border-radius: 10px;
+            -webkit-appearance: none;
+            box-shadow: var(--inner-shadow);
+        }
+
+        .color-mixer input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(100, 255, 218, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+        
+        .color-mixer input#red::-webkit-slider-thumb {
+            background: #ff5555;
+            box-shadow: 0 0 8px rgba(255, 85, 85, 0.5);
+        }
+        
+        .color-mixer input#green::-webkit-slider-thumb {
+            background: #50fa7b;
+            box-shadow: 0 0 8px rgba(80, 250, 123, 0.5);
+        }
+        
+        .color-mixer input#blue::-webkit-slider-thumb {
+            background: #8be9fd;
+            box-shadow: 0 0 8px rgba(139, 233, 253, 0.5);
+        }
+
+        input::placeholder {
+            color: #777;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-grid button {
+            grid-column: span 2;
+            margin-top: 10px;
+            background: var(--accent-color);
+        }
+
+        .block p#mathResult,
+        .block p#evenOddResult,
+        .block p#votingResult,
+        .block p#gradeResult {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .block p#primeResult {
+            max-height: 100px;
+            overflow-y: auto;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .button-group button {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Feature Collection</h1>
+    <div class="grid">
+      
+        <div class="block">
+            <h2>Alert Buttons</h2>
+            <button onclick="alert('Button 1 Alert!')">Alert 1</button>
+            <button onclick="alert('Button 2 Alert!')">Alert 2</button>
+        </div>
+
+    
+        <div class="block">
+            <h2>Math Operations</h2>
+            <input type="number" id="num1" placeholder="Number 1">
+            <input type="number" id="num2" placeholder="Number 2">
+            <div class="button-group">
+                <button onclick="performOperation('add')">Add</button>
+                <button onclick="performOperation('multiply')">Multiply</button>
+            </div>
+            <p id="mathResult"></p>
+        </div>
+
+        
+        <div class="block">
+            <h2>Even/Odd Check</h2>
+            <input type="number" id="evenOddInput" placeholder="Enter a number">
+            <button onclick="checkEvenOdd()">Check</button>
+            <p id="evenOddResult"></p>
+        </div>
+
+      
+        <div class="block">
+            <h2>Voting Age Check</h2>
+            <input type="number" id="ageInput" placeholder="Enter your age">
+            <button onclick="checkVotingAge()">Check</button>
+            <p id="votingResult"></p>
+        </div>
+
+      
+        <div class="block">
+            <h2>Prime Numbers</h2>
+            <input type="number" id="primeInput" placeholder="Enter upper limit">
+            <button onclick="showPrimes()">Show Primes</button>
+            <p id="primeResult"></p>
+        </div>
+
+       
+        <div class="block">
+            <h2>Registration Form</h2>
+            <form id="regForm" onsubmit="return handleFormSubmit(event)">
+                <div class="form-grid">
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Contact" required>
+                    <input type="number" placeholder="Roll No" required>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="block">
+            <h2>Color Changer</h2>
+            <div class="circle" onclick="changeColor(this)" style="background-color: #e74c3c" data-color-index="0"></div>
+        </div>
+
+   
+        <div class="block">
+            <h2>Grade Calculator</h2>
+            <input type="number" id="marksInput" placeholder="Enter marks (0-100)">
+            <button onclick="calculateGrade()">Calculate</button>
+            <p id="gradeResult"></p>
+        </div>
+
+  
+        <div class="block">
+            <h2>Interaction Counters</h2>
+            <button class="counter-btn" id="counterButton">
+                Count Interactions Here
+            </button>
+            <div class="counter-stats">
+                <p>Clicks <span id="clickCount">0</span></p>
+                <p>Double <span id="dblClickCount">0</span></p>
+                <p>Hovers <span id="hoverCount">0</span></p>
+            </div>
+        </div>
+
+       
+        <div class="block">
+            <h2>Color Mixer</h2>
+            <div class="color-mixer">
+                <div class="slider-container">
+                    <label for="red">Red</label>
+                    <input type="range" id="red" min="0" max="255" value="128">
+                </div>
+                <div class="slider-container">
+                    <label for="green">Green</label>
+                    <input type="range" id="green" min="0" max="255" value="128">
+                </div>
+                <div class="slider-container">
+                    <label for="blue">Blue</label>
+                    <input type="range" id="blue" min="0" max="255" value="128">
+                </div>
+                <div class="color-preview" id="colorPreview"></div>
+                <div class="color-name" id="colorName"></div>
+            </div>
+        </div>
+
+     
+        <div class="block" id="calculator">
+            <h2>Calculator</h2>
+            <input type="text" class="calc-display" id="display" readonly>
+            <div class="calc-buttons">
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button onclick="appendToDisplay('+')">+</button>
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button onclick="appendToDisplay('-')">-</button>
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button onclick="appendToDisplay('*')">×</button>
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="appendToDisplay('.')">.</button>
+                <button onclick="calculate()">=</button>
+                <button onclick="appendToDisplay('/')">/</button>
+                <button onclick="clearDisplay()">C</button>
+                <button onclick="appendToDisplay('(')">(</button>
+                <button onclick="appendToDisplay(')')">)</button>
+                <button onclick="calculatePower()">^</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+        function performOperation(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            let result;
+            if(operation === 'add') result = num1 + num2;
+            else result = num1 * num2;
+            document.getElementById('mathResult').textContent = `Result: ${result}`;
+        }
+
+        function checkEvenOdd() {
+            const number = parseInt(document.getElementById('evenOddInput').value);
+            document.getElementById('evenOddResult').textContent = 
+                number % 2 === 0 ? "Even" : "Odd";
+        }
+
+       
+        function checkVotingAge() {
+            const age = parseInt(document.getElementById('ageInput').value);
+            document.getElementById('votingResult').textContent = 
+                age >= 18 ? "Eligible to vote" : "Not eligible to vote";
+        }
+
+       
+        function isPrime(num) {
+            for(let i = 2; i <= Math.sqrt(num); i++) {
+                if(num % i === 0) return false;
+            }
+            return num > 1;
+        }
+
+        function showPrimes() {
+            const limit = parseInt(document.getElementById('primeInput').value);
+            let primes = [];
+            for(let i = 2; i <= limit; i++) {
+                if(isPrime(i)) primes.push(i);
+            }
+            document.getElementById('primeResult').textContent = primes.join(', ');
+        }
+
+  
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert('Form submitted successfully!');
+            event.target.reset();
+        }
+
+     
+        const colors = ['#e74c3c', '#2ecc71', '#9b59b6'];
+        function changeColor(circle) {
+            const currentIndex = parseInt(circle.getAttribute('data-color-index')) || 0;
+            const newIndex = (currentIndex + 1) % colors.length;
+            circle.style.backgroundColor = colors[newIndex];
+            circle.setAttribute('data-color-index', newIndex);
+        }
+
+      
+        function calculateGrade() {
+            const marks = parseInt(document.getElementById('marksInput').value);
+            let grade;
+            if(marks >= 75) grade = 'A+';
+            else if(marks >= 70) grade = 'A';
+            else if(marks >= 65) grade = 'A-';
+            else if(marks >= 60) grade = 'B+';
+            else if(marks >= 55) grade = 'B';
+            else if(marks >= 50) grade = 'B-';
+            else if(marks >= 45) grade = 'C+';
+            else if(marks >= 40) grade = 'C';
+            else if(marks >= 35) grade = 'C-';
+            else if(marks >= 30) grade = 'D';
+            else grade = 'F';
+            document.getElementById('gradeResult').textContent = `Grade: ${grade}`;
+        }
+
+       
+        let clickCount = 0, dblClickCount = 0, hoverCount = 0;
+        const counterButton = document.getElementById('counterButton');
+        
+        counterButton.addEventListener('click', () => {
+            document.getElementById('clickCount').textContent = ++clickCount;
+        });
+        
+        counterButton.addEventListener('dblclick', () => {
+            document.getElementById('dblClickCount').textContent = ++dblClickCount;
+        });
+        
+        counterButton.addEventListener('mouseover', () => {
+            document.getElementById('hoverCount').textContent = ++hoverCount;
+        });
+
+        
+        const colorInputs = document.querySelectorAll('.color-mixer input');
+        const colorPreview = document.getElementById('colorPreview');
+        function updateColor() {
+            const r = document.getElementById('red').value;
+            const g = document.getElementById('green').value;
+            const b = document.getElementById('blue').value;
+            const color = `rgb(${r}, ${g}, ${b})`;
+            colorPreview.style.backgroundColor = color;
+            document.getElementById('colorName').textContent = color;
+        }
+        colorInputs.forEach(input => input.addEventListener('input', updateColor));
+        updateColor();
+
+       
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculate() {
+            try {
+                const result = eval(document.getElementById('display').value);
+                document.getElementById('display').value = result;
+            } catch {
+                alert('Invalid calculation');
+                clearDisplay();
+            }
+        }
+
+        function calculatePower() {
+            const [base, exponent] = document.getElementById('display').value.split('^');
+            document.getElementById('display').value = Math.pow(base, exponent);
+        }
+    </script>
+</body>
+</html>
